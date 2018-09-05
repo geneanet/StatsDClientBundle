@@ -28,7 +28,7 @@ class UserStatsCollector extends StatsCollector
 
         $key = sprintf('%s.anonymous', $this->getStatsDataKey());
         try {
-            if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if ($this->getAuthorizationChecker()->isGranted('IS_AUTHENTICATED_FULLY')) {
                 $key = sprintf('%s.logged', $this->getStatsDataKey());
             }
         } catch (AuthenticationCredentialsNotFoundException $exception) {
@@ -42,7 +42,7 @@ class UserStatsCollector extends StatsCollector
 
     public function setAuthorizationChecker(AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->authorizationChecker = $security_context;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public function getAuthorizationChecker()
